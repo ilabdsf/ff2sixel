@@ -64,7 +64,6 @@ typedef struct {
 
 typedef struct Paint Paint;
 struct Paint {
-	struct Paint *next;
 	Color color;
 	bool introduced; /* Color was introduced and can be referenced by index. */
 	bool used; /* Entry is allocated. */
@@ -85,9 +84,6 @@ palette_init(void)
 	for (n = 255; n >= 0; n--) {
 		palette_tab[n].introduced = false;
 		palette_tab[n].used = false;
-
-		palette_tab[n].next = palette_top;
-		palette_top = &palette_tab[n];
 	}
 }
 
@@ -127,8 +123,12 @@ palette_select(Paint *color)
 static Paint *
 palette_alloc(Color color)
 {
+	uint16_t i;
 	Paint *curr;
-	for (curr = palette_top; curr != NULL; curr = curr->next) {
+
+	for (i = 0; i < 256; i++) {
+		curr = &palette_tab[i];
+
 		if (curr->color.red == color.red &&
 		    curr->color.green == color.green &&
 		    curr->color.blue == color.blue) {
@@ -136,7 +136,7 @@ palette_alloc(Color color)
 			return curr;
 		}
 
-		if (!curr->used || curr->next == NULL)
+		if (!curr->used)
 			break;
 	}
 
