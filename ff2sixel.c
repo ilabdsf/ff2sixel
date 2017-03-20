@@ -252,8 +252,10 @@ span_flush(void)
 		span_line(n, sixels + width * n);
 
 	/* Iterate until there are no spans. */
-	for (; span_top != NULL; sixel_cr()) {
+	while (span_top != NULL) {
 		span_flush_iter();
+		if (span_top != NULL)
+			sixel_cr();
 	}
 
 	/* Now we are sure no colors are referenced by spans. */
