@@ -329,6 +329,7 @@ main(int argc, char *argv[])
 		}
 		span_flush();
 		putchar('-');
+		cursor_x = 0;
 	}
 	fputs("\033\\", stdout);
 
