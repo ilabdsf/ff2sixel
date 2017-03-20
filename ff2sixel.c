@@ -223,7 +223,7 @@ span_flush_iter(void)
 {
 	Span **prev, *curr;
 	prev = &span_top;
-	for (curr = *prev; curr != NULL; curr = curr->next) {
+	for (curr = *prev; curr != NULL; curr = *prev) {
 		if (curr->lo < cursor_x) {
 			prev = &curr->next;
 			continue;
