@@ -176,6 +176,7 @@ span_alloc(Paint *color, uint32_t lo, uint32_t hi, uint8_t *map, Span *next)
 {
 	Span *span;
 
+	assert(hi > lo);
 	span = malloc(sizeof *span);
 	if (span == NULL)
 		err(1, "malloc");
