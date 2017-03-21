@@ -159,10 +159,10 @@ palette_alloc(Color color)
 
 typedef struct Span Span;
 struct Span {
-	Span *next;
 	Paint *color;
 	uint32_t lo, hi;
 	uint8_t	*map;
+	Span *next;
 };
 
 static Span *span_top;
@@ -171,31 +171,38 @@ static uint32_t width;
 static uint32_t height;
 static uint8_t *sixels;
 
+static Span *
+span_alloc(Paint *color, uint32_t lo, uint32_t hi, uint8_t *map, Span *next)
+{
+	Span *span;
+
+	span = malloc(sizeof *span);
+	if (span == NULL)
+		err(1, "malloc");
+
+	span->color = color;
+	span->lo = lo;
+	span->hi = hi;
+	span->map = map;
+	span->next = next;
+	return span;
+}
+
 static void
 span_add(Paint *color, uint32_t lo, uint32_t hi, uint8_t *map)
 {
-	Span **prev, *curr, *node;
-
-	node = malloc(sizeof *node);
-	if (node == NULL)
-		err(1, "malloc");
-
-	node->color = color;
-	node->lo = lo;
-	node->hi = hi;
-	node->map = map;
+	Span **prev, *curr;
 
 	prev = &span_top;
 	for (curr = *prev; curr != NULL; curr = curr->next) {
-		if (node->lo < curr->lo)
+		if (lo < curr->lo)
 			break;
-		if (node->lo == curr->lo && node->hi > curr->hi)
+		if (lo == curr->lo && hi > curr->hi)
 			break;
 		prev = &curr->next;
 	}
 
-	node->next = curr;
-	*prev = node;
+	*prev = span_alloc(color, lo, hi, map, curr);
 }
 
 static void
