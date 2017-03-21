@@ -212,9 +212,9 @@ span_line(uint8_t index, uint8_t *map)
 	Paint *color = &palette_tab[index];
 	uint32_t lo, hi;
 
-	for (lo = 0; lo < width; lo++) {
-		if (map[lo] == 0)
-			continue;
+	for (lo = 0; lo < width; lo = hi) {
+		while (lo < width && map[lo] == 0)
+			lo++;
 
 		for (hi = lo + 1; hi < width; hi++) {
 			if (map[hi] == 0)
@@ -222,7 +222,6 @@ span_line(uint8_t index, uint8_t *map)
 		}
 
 		span_add(color, lo, hi, map);
-		lo = hi - 1;
 	}
 }
 
