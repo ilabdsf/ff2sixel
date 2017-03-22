@@ -13,6 +13,11 @@ is worth mentioning in any case.
 
 To install just copy `ff2sixel` binary to your `$PATH`.
 
+For convenience, `sx` script is provided, which makes it possible to
+display a sequence of files with
+
+    sx [file ...]
+
 [farbfeld]: http://tools.suckless.org/farbfeld/
 [manual]: http://vt100.net/docs/vt3xx-gp/chapter14.html
 [mlterm]: http://mlterm.sourceforge.net/

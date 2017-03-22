@@ -1,0 +1,4 @@
+#!/bin/sh
+for i
+do 2ff <"$i" | ff2sixel
+done
