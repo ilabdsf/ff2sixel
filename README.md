@@ -7,7 +7,7 @@ Together with farbfeld utilities, it can be used to display images
 over SSH.  Sixel-capable terminal is required, such as [mlterm]:
 ![mlterm displaying png](mlterm.png)
 
-[kmiya's sixel] was used as a reference.  Its license is an unformal
+[kmiya's sixel] was used as a reference.  Its license is an informal
 version of unlicense and does not demand acknowledgement, but it
 is worth mentioning in any case.
 
